@@ -9,10 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('pajria_lowongans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('perusahaan_id');
+            $table->string('judul');
+            $table->text('deskripsi');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->foreign('perusahaan_id')->references('id')->on('pajria_perusahaans')->onDelete('cascade');
             $table->timestamps();
         });
     }

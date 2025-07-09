@@ -9,14 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('pajria_pelamar_magang', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('lowongan_id');
+            $table->date('tanggal_daftar');
+            $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('lowongan_id')->references('id')->on('pajria_lowongans')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
