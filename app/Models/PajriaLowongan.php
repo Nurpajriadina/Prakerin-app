@@ -9,7 +9,7 @@ class PajriaLowongan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['perusahaan_id', 'judul', 'deskripsi', 'tanggal_mulai', 'tanggal_selesai'];
+    protected $fillable = ['perusahaan_id', 'judul', 'deskripsi_pekerjaan', 'lokasi_penempatan', 'rincian_penugasan'];
 
     public function perusahaan()
     {

@@ -9,11 +9,20 @@ class PajriaPerusahaan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'alamat', 'email', 'no_telepon'];
+    protected $fillable = [
+        'nama',
+        'alamat',
+        'email',
+        'no_telepon',
+        'tentang',
+        'kontak_nama',
+        'kontak_email',
+        'kontak_alamat',
+        'logo',
+    ];
 
     public function lowongans()
     {
         return $this->hasMany(PajriaLowongan::class, 'perusahaan_id');
     }
 }
-

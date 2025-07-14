@@ -11,7 +11,7 @@ class PajriaPelamarMagang extends Model
     use HasFactory;
 
     protected $table = 'pajria_pelamar_magang';
-    protected $fillable = ['user_id', 'lowongan_id', 'tanggal_daftar', 'status'];
+    protected $fillable = ['pelamar_id', 'lowongan_id', 'tanggal_daftar', 'status'];
 
     public function user()
     {

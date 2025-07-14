@@ -10,14 +10,14 @@ class PajriaLaporanController extends Controller
 {
     public function index()
     {
-        $laporans = PajriaLaporan::with('pelamar')->get();
-        return view('laporan.index', compact('laporans'));
+        $laporans = PajriaLaporan::with('pelamar.user')->get();
+        return view('admin.laporan.index', compact('laporans'));
     }
 
     public function create()
     {
         $pelamars = PajriaPelamarMagang::all();
-        return view('laporan.create', compact('pelamars'));
+        return view('admin.laporan.create', compact('pelamars'));
     }
 
     public function store(Request $request)
@@ -30,18 +30,18 @@ class PajriaLaporanController extends Controller
 
         PajriaLaporan::create($request->all());
 
-        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil ditambahkan');
+        return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil ditambahkan');
     }
 
     public function show(PajriaLaporan $laporan)
     {
-        return view('laporan.show', compact('laporan'));
+        return view('admin.laporan.show', compact('laporan'));
     }
 
     public function edit(PajriaLaporan $laporan)
     {
         $pelamars = PajriaPelamarMagang::all();
-        return view('laporan.edit', compact('laporan', 'pelamars'));
+        return view('admin.laporan.edit', compact('laporan', 'pelamars'));
     }
 
     public function update(Request $request, PajriaLaporan $laporan)
@@ -54,12 +54,12 @@ class PajriaLaporanController extends Controller
 
         $laporan->update($request->all());
 
-        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil diperbarui');
+        return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui');
     }
 
     public function destroy(PajriaLaporan $laporan)
     {
         $laporan->delete();
-        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil dihapus');
+        return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil dihapus');
     }
 }

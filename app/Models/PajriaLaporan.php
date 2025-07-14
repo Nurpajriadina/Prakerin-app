@@ -16,4 +16,3 @@ class PajriaLaporan extends Model
         return $this->belongsTo(PajriaPelamarMagang::class, 'pelamar_id');
     }
 }
-
