@@ -84,10 +84,6 @@
       <input type="password" name="password" class="form-control" placeholder="Password" required>
     </div>
 
-    <div class="form-check mb-3 text-start">
-      <input type="checkbox" class="form-check-input" id="remember">
-      <label class="form-check-label" for="remember">Remember me</label>
-    </div>
 
     <button type="submit" class="btn btn-login">LOGIN</button>
 

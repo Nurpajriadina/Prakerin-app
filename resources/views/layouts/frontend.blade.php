@@ -38,6 +38,10 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     .stat-card h5, .stat-card p { color: #312973; }
+
+    .text-ungu {
+    color: #6f42c1 !important;
+    }
   </style>
 </head>
 <body>

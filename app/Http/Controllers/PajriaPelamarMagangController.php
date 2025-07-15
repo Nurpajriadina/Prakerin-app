@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\PajriaPelamarMagang;
 use App\Models\PajriaLowongan;
 use App\Models\User;
@@ -34,7 +35,6 @@ class PajriaPelamarMagangController extends Controller
         return redirect()->back()->with('success', 'Status pelamar berhasil diperbarui.');
     }
 
-    // Fungsi lainnya tetap
     public function create()
     {
         $users = User::all();
@@ -84,10 +84,17 @@ class PajriaPelamarMagangController extends Controller
     // ============================
     // PENDAFTARAN MANUAL SISWA
     // ============================
-    public function daftar()
+    public function daftar(Request $request)
     {
-        $lowongans = PajriaLowongan::all();
-        return view('admin.pelamar.daftar', compact('lowongans'));
+        $lowonganId = $request->query('lowongan_id');
+
+        if ($lowonganId) {
+            $lowongan = PajriaLowongan::findOrFail($lowonganId);
+            return view('frontend.pelamar.index', compact('lowongan'));
+        } else {
+            $lowongans = PajriaLowongan::all();
+            return view('frontend.pelamar.index', compact('lowongans'));
+        }
     }
 
     public function daftarSimpan(Request $request)
@@ -113,7 +120,7 @@ class PajriaPelamarMagangController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect('/dashboard')->with('success', 'Pendaftaran berhasil dikirim!');
+        return redirect()->route('pelamar.daftar')->with('success', 'Pendaftaran berhasil dikirim!');
     }
 
     // ============================
@@ -136,5 +143,24 @@ class PajriaPelamarMagangController extends Controller
             ->where('status', 'diterima')
             ->get();
         return view('admin.dashboard.diterima', compact('pelamars'));
+    }
+
+    // ============================
+    // DATA USER YANG MELAMAR
+    // ============================
+    public function pelamarUser()
+    {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $user = auth()->user(); // ini sudah aman karena sebelumnya di-check
+
+        $pelamars = PajriaPelamarMagang::with('lowongan')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        return view('frontend.pelamar.index', compact('pelamars'));
     }
 }

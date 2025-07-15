@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="mb-4">
-        <h2>{{ $lowongan->judul }}</h2>
+        <h2 class="text-ungu">{{ $lowongan->judul }}</h2>
         <span class="badge bg-primary">{{ $lowongan->kategori }}</span>
     </div>
 

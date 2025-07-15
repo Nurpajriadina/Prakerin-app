@@ -14,13 +14,8 @@ use App\Http\Controllers\Frontend\AuthController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
-    if (Auth::check()) {
-        if (Auth::user()->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif (Auth::user()->role === 'user') {
-            return redirect()->route('frontend.beranda');
-        }
-    }
+
+
     return view('frontend.beranda');
 })->name('frontend.beranda');
 
@@ -30,7 +25,9 @@ Route::get('/', function () {
 | Public Routes (Frontend)
 |--------------------------------------------------------------------------
 */
+
 Route::get('/lowongan', [PajriaLowonganController::class, 'indexFrontend'])->name('frontend.lowongan');
+Route::get('/lowongan/{id}', [PajriaLowonganController::class, 'showFrontend'])->name('frontend.lowongan.show');
 Route::get('/lowongan/{id}', [PajriaLowonganController::class, 'showFrontend'])->name('frontend.lowongan.show');
 
 Route::get('/perusahaan', [PajriaPerusahaanController::class, 'indexFrontend'])->name('frontend.perusahaan');
@@ -47,6 +44,8 @@ Route::post('/register', [AuthController::class, 'register']);
 // Pelamar
 Route::get('/daftar', [PajriaPelamarMagangController::class, 'daftar'])->name('pelamar.daftar');
 Route::post('/daftar', [PajriaPelamarMagangController::class, 'daftarSimpan'])->name('pelamar.daftar.simpan');
+Route::get('/lowongan/{id}/daftar', [PajriaPelamarMagangController::class, 'daftar'])->name('frontend.lowongan.daftar');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +53,7 @@ Route::post('/daftar', [PajriaPelamarMagangController::class, 'daftarSimpan'])->
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/pelamar', [PajriaPelamarMagangController::class, 'pelamarUser'])->name('frontend.pelamar.index');
     Route::get('/lowongan', [PajriaLowonganController::class, 'indexFrontend'])->name('lowongan.index');
     Route::get('/lowongan/{id}', [PajriaLowonganController::class, 'showFrontend'])->name('lowongan.show');
 

@@ -32,7 +32,6 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ route('lowongan.index') }}" class="btn btn-secondary">← Kembali ke daftar lowongan</a>
     </div>
 </div>
 @endsection
